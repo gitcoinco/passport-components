@@ -1,18 +1,25 @@
 import { useState, useEffect } from 'react';
 
+//component fetches passport score and displays it
+
+//required props: scorer_id, headers, address
+
+//optional props: label, hideLabel, hideInfo, style
+
+//states: score, no score
+
+//todo: design noScore state
+//todo: add optional prop functionality
 
 interface Props {
     SCORER_ID?: string;
     headers?: Record<string, string>;
     currentAddress?: string; 
-    threshold: number;
   }
   
-export const SecretMessage = ({ SCORER_ID, headers, currentAddress, threshold}: Props) => {
+export const PassportScore = ({ SCORER_ID, headers, currentAddress}: Props) => {
     const [score, setScore] = useState<string>('')
     const [noScoreMessage, setNoScoreMessage] = useState<string>('') 
-
-    const [newScore, setNewScore] = useState<number>(0)
     
     useEffect(() => {
         if(SCORER_ID && headers && currentAddress) {
@@ -33,7 +40,6 @@ export const SecretMessage = ({ SCORER_ID, headers, currentAddress, threshold}: 
             if (passportData.score) {
                 const roundedScore = Math.round(passportData.score * 100) / 100;
                 setScore(roundedScore.toString());
-                setNewScore(roundedScore);
             } else {
                 setNoScoreMessage('No score available, please submit your passport after you have added some stamps.');
             }
@@ -50,25 +56,17 @@ export const SecretMessage = ({ SCORER_ID, headers, currentAddress, threshold}: 
         )
     }
 
-    if (newScore >= threshold) {
-        return (
-            <div>
-                <h2>Congrats! You can view the secret message</h2>
-            </div>
-        )
-    }
-
     if (noScoreMessage != '') {
         return (
             <div>
-                <h2>hey</h2>
+                <h2>{noScoreMessage}</h2>
             </div>
         )
     }
 
     return (
     <div>
-        <h2 style={styles.h2}>{noScoreMessage}</h2>
+        <h2>Your passport score is {score}</h2>
     </div>
     )
 }

@@ -5,7 +5,8 @@ interface Props {
     headers?: Record<string, string>;
     currentAddress?: string; 
   }
-  
+
+
 export const DisplayStamps = ({ headers, currentAddress}: Props) => {
     const [stamps, setStamps] = useState<string>('')
     const [noStampMessage, setNoStampMessage] = useState<string>('') 
@@ -14,10 +15,11 @@ export const DisplayStamps = ({ headers, currentAddress}: Props) => {
         if(headers && currentAddress) {
             fetchScore();
         }
-    }, []);
+    }, [headers, currentAddress]);
+
 
     const fetchScore = async () => {
-        const GET_PASSPORT_STAMPS_URI = `https://api.scorer.gitcoin.co/registry/stamps/${currentAddress}`;
+        const GET_PASSPORT_STAMPS_URI = `https://api.scorer.gitcoin.co/registry/stamps/${currentAddress}?limit=1000&include_metadata=true`;
 
         try {
             const response = await fetch(GET_PASSPORT_STAMPS_URI, {
@@ -28,7 +30,7 @@ export const DisplayStamps = ({ headers, currentAddress}: Props) => {
 
             if (passportData) {
                 console.log(passportData)
-                setStamps(JSON.stringify(passportData.items[0]))
+                setStamps(JSON.stringify(passportData))
             } else {
                 setNoStampMessage('No stamps available, please submit your passport after you have added some stamps.');
             }
