@@ -1,4 +1,6 @@
+import { Gorditas } from 'next/font/google';
 import { useState, useEffect } from 'react';
+import CSS from 'csstype';
 
 
 interface Props {
@@ -6,9 +8,14 @@ interface Props {
     currentAddress?: string; 
   }
 
+interface Stamp {
+    version: string,
+    credential: Record<string, any>,
+    metadata: Record<string, any>
+}
 
 export const DisplayStamps = ({ headers, currentAddress}: Props) => {
-    const [stamps, setStamps] = useState<string>('')
+    const [stamps, setStamps] = useState<Stamp[]>([])
     const [noStampMessage, setNoStampMessage] = useState<string>('') 
     
     useEffect(() => {
@@ -28,9 +35,9 @@ export const DisplayStamps = ({ headers, currentAddress}: Props) => {
 
             const passportData = await response.json();
 
-            if (passportData) {
-                console.log(passportData)
-                setStamps(JSON.stringify(passportData))
+            if (passportData && passportData.items) {
+                console.log(passportData.items)
+                setStamps(passportData.items)
             } else {
                 setNoStampMessage('No stamps available, please submit your passport after you have added some stamps.');
             }
@@ -56,9 +63,15 @@ export const DisplayStamps = ({ headers, currentAddress}: Props) => {
     }
 
     return (
-    <div>
-        <h2 style={styles.h2}>{stamps}</h2>
-    </div>
+        <div style={styles.stampGrid}>
+            {stamps.map((stamp, index) => (
+                <div key={index} style={styles.stampBox}>
+                    <h3>{stamp.metadata.name}</h3>
+                    <p>{stamp.metadata.description}</p>
+                    {/* {stamp.metadata.platform && <img src={stamp.metadata.platform.icon} alt='Platform Icon'/>} */}
+                </div>
+            ))}
+        </div>
     )
 }
 
@@ -66,5 +79,15 @@ const styles = {
     h2: {
         fontSize: 12,
         fontWeight: 'normal'
+    },
+    stampGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gap: '20px'
+    },
+    stampBox: {
+        border: '2px solid purple',
+        background: 'white',
+        padding: '20px',
     }
 }

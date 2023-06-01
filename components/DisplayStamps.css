@@ -1,0 +1,12 @@
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stamp-box {
+    border: 2px solid purple;
+    background: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
