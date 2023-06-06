@@ -5,6 +5,9 @@ import { ethers } from 'ethers'
 import { DisplayStamps } from '@/components/DisplayStamps'
 import { PassportGate } from '../components/PassportGate'
 import { PassportScore } from '../components/PassportScore'
+import Image from 'next/image'
+
+//import { logo } from '../public/gitcoing-logo.png'
 
 // these lines read the API key and scorer ID from your .env.local file
 const APIKEY = process.env.NEXT_PUBLIC_GC_API_KEY
@@ -60,7 +63,16 @@ export default function Passport() {
   return (
     /* this is the UI for the app */
     <div style={styles.main}>
-      <h1 style={styles.heading}>Gitcoin Passport Components</h1>
+      <div style={styles.header}>
+        <Image src="/logo.png" alt="Logo" style={styles.image} width={106} height={19} />
+        <Image src="/passportLogo.png" alt="Logo" style={styles.image} width={342} height={93} />
+        <Image src="/info.png" alt="Logo" style={styles.image} width={637} height={32} />
+        <Image src="/paragraph.png" alt="Logo" style={styles.image} width={597} height={76} />
+        {/* <p style={styles.p}>Gitcoin Passport is an identity verification application that enables users to collect verifiable credentials, proving their identity and trustworthiness. It provides access to secure web3 experiences and enhances secure participation in various online platforms.</p> */}
+      </div>
+      {/* <h1 style={styles.heading}>Gitcoin Passport Components</h1> */}
+      
+
       <div style={styles.buttonContainer}>
       {
         !connected && (
@@ -78,10 +90,10 @@ export default function Passport() {
               <PassportScore SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} />
             </div>
             
-            <div style={styles.componentContainer}>
+            {/* <div style={styles.componentContainer}>
               <h2 style={styles.h2}>Secret message component</h2>
               <PassportGate SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} threshold={15}/>
-            </div>
+            </div> */}
 
             <div style={styles.componentContainer}>
               <h2 style={styles.h2}>Display stamps component</h2>
@@ -100,17 +112,34 @@ const styles = {
     width: '900px',
     margin: '0 auto',
     paddingTop: 90,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#0B110F'
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
   },
   heading: {
-    fontSize: 60
+    fontSize: 60,
+    color: 'white'
+  },
+  image: {
+    margin: 10,
   },
   intro: {
     fontSize: 18,
+    color: 'white'
   },
   h2: {
     fontSize: 24,
-    fontWeight: '500'
+    fontWeight: '500',
+    color: 'white'
+  },
+  p: {
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: 1.5
   },
   configurePassport: {
     marginTop: 20,

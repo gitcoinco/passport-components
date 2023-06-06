@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import Image from 'next/image'
+import { Roboto_Flex } from 'next/font/google';
 
 //component fetches passport score and displays it
 
@@ -66,14 +68,18 @@ export const PassportScore = ({ SCORER_ID, headers, currentAddress}: Props) => {
 
     return (
     <div>
-        <h2>Your passport score is {score}</h2>
+        <div style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-start', }}>
+        <h2 style={styles.h2}>{score}</h2>
+        <Image src="/hover.png" alt="Logo" width={15} height={15} style={{paddingLeft: 5, paddingTop: 20}}/>
+        </div>
     </div>
     )
 }
 
 const styles = {
     h2: {
-        fontSize: 12,
-        fontWeight: 'normal'
+        fontSize: 24,
+        fontWeight: 'normal',
+        color: 'white'
     }
 }

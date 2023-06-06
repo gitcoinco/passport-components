@@ -14,6 +14,9 @@ interface Stamp {
     metadata: Record<string, any>
 }
 
+const ONCHAIN_GROUPS = ["Lens Handle", "zkSync 1.0", "NFT Holder", "Self GTC Staking", "Snapshot Voter", "Transactions", "Contributed to...", "Gas fees spent", "GTC possessions", 'Lens', 'POAP', 'Ens', 'NFT', 'EthGTEOneTxnProvider', 'FirstEthTxnProvider',  ]
+const ONCHAIN_STAMP_NAMES = ['Ens', 'POAP']
+
 export const DisplayStamps = ({ headers, currentAddress}: Props) => {
     const [stamps, setStamps] = useState<Stamp[]>([])
     const [noStampMessage, setNoStampMessage] = useState<string>('') 
@@ -63,14 +66,19 @@ export const DisplayStamps = ({ headers, currentAddress}: Props) => {
     }
 
     return (
+        <div>
         <div style={styles.stampGrid}>
             {stamps.map((stamp, index) => (
                 <div key={index} style={styles.stampBox}>
-                    <h3>{stamp.metadata.name}</h3>
-                    <p>{stamp.metadata.description}</p>
-                    {/* {stamp.metadata.platform && <img src={stamp.metadata.platform.icon} alt='Platform Icon'/>} */}
+                    {stamp.metadata.platform && <img style={{width: 50}} src={stamp.metadata.platform.icon} alt='Platform Icon'/>}
+                    <h3 style={styles.h3}>{stamp.metadata.platform.id}</h3>
+                    <p  style={styles.p}>{stamp.metadata.group}</p>
+                    <ul>
+                        <li style={styles.p}>{stamp.metadata.description}</li>
+                    </ul>
                 </div>
             ))}
+        </div>
         </div>
     )
 }
@@ -78,16 +86,30 @@ export const DisplayStamps = ({ headers, currentAddress}: Props) => {
 const styles = {
     h2: {
         fontSize: 12,
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+        color: 'white'
+    },
+    h3: {
+        color: 'white'
+    },
+    p: {
+        color: 'white'
+    },
+    li: {
+        color: 'white'
     },
     stampGrid: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gap: '20px'
+        gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+        gap: '20px',
+        marginTop: 20
     },
     stampBox: {
-        border: '2px solid purple',
-        background: 'white',
+        border: '2px solid #19393F',
+        background: '#0C110F',
         padding: '20px',
+    },
+    a: {
+        color: '#6F3FF5'
     }
 }
