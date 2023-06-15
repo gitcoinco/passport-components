@@ -1,9 +1,9 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
-import { Libre_Franklin } from 'next/font/google'
+// import { Inter } from 'next/font/google'
+// import { Libre_Franklin } from 'next/font/google'
 
-const libreFranklin = Libre_Franklin({ subsets: ['latin'] })
-const inter = Inter({ subsets: ['latin'] })
+// const libreFranklin = Libre_Franklin({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Create Next App',
@@ -17,7 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={libreFranklin.className}>{children}</body>
+      {/* <body className={inter.className}>{children}</body> */}
+      <body>{children}</body>
     </html>
   )
 }

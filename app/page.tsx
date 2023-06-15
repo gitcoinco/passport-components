@@ -2,9 +2,9 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
-import { DisplayStamps } from '@/components/DisplayStamps'
-import { PassportGate } from '../components/PassportGate'
-import { PassportScore } from '../components/PassportScore'
+import { DisplayStamps } from '@/src/DisplayStamps'
+import { PassportGate } from '../src/PassportGate'
+import { PassportScore } from '../src/PassportScore'
 import Image from 'next/image'
 
 //import { logo } from '../public/gitcoing-logo.png'
@@ -66,9 +66,10 @@ export default function Passport() {
       <div style={styles.header}>
         <Image src="/logo.png" alt="Logo" style={styles.image} width={106} height={19} />
         <Image src="/passportLogo.png" alt="Logo" style={styles.image} width={342} height={93} />
-        <Image src="/info.png" alt="Logo" style={styles.image} width={637} height={32} />
-        <Image src="/paragraph.png" alt="Logo" style={styles.image} width={597} height={76} />
-        {/* <p style={styles.p}>Gitcoin Passport is an identity verification application that enables users to collect verifiable credentials, proving their identity and trustworthiness. It provides access to secure web3 experiences and enhances secure participation in various online platforms.</p> */}
+        <h2 style={styles.h2}>Your citizenship pass for the decentralized internet.</h2>
+        {/* <Image src="/info.png" alt="Logo" style={styles.image} width={637} height={32} />
+        <Image src="/paragraph.png" alt="Logo" style={styles.image} width={597} height={76} /> */}
+        <p style={styles.p}>Gitcoin Passport is an identity verification application that enables users to collect verifiable credentials, proving their identity and trustworthiness. It provides access to secure web3 experiences and enhances secure participation in various online platforms.</p>
       </div>
       {/* <h1 style={styles.heading}>Gitcoin Passport Components</h1> */}
       
@@ -86,8 +87,19 @@ export default function Passport() {
         connected && (
           <div>
             <div style={styles.componentContainer}>
-              <h2 style={styles.h2}>Display score component</h2>
+              <h2 style={styles.h2}>Passport score component</h2>
+              {/* default */}
               <PassportScore SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} />
+              {/* hide label */}
+              <PassportScore SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} label={false}/>
+              {/* theme dark */}
+              <PassportScore SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} theme={'dark'}/>
+              {/* hide info */}
+              <PassportScore SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} hideInfo={true}/>
+              {/* add threshold */}
+              <PassportScore SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} threshold={30}/>
+              {/* no score message */}
+              {/* <PassportScore SCORER_ID={SCORER_ID} headers={headers} currentAddress={address} />  */}
             </div>
             
             {/* <div style={styles.componentContainer}>
@@ -97,7 +109,7 @@ export default function Passport() {
 
             <div style={styles.componentContainer}>
               <h2 style={styles.h2}>Display stamps component</h2>
-              <DisplayStamps headers={headers} currentAddress={address} />
+              {/* <DisplayStamps headers={headers} currentAddress={address} /> */}
             </div>
           </div>
         )
@@ -112,13 +124,13 @@ const styles = {
     width: '900px',
     margin: '0 auto',
     paddingTop: 90,
-    backgroundColor: '#0B110F'
+    //backgroundColor: '#0B110F'
   },
   header: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column' as 'column'
   },
   heading: {
     fontSize: 60,
@@ -133,13 +145,14 @@ const styles = {
   },
   h2: {
     fontSize: 24,
-    fontWeight: '500',
-    color: 'white'
+    fontWeight: '300',
+    color: '#B9B3FF'
   },
   p: {
     color: 'white',
-    textAlign: 'center',
-    lineHeight: 1.5
+    textAlign: 'center' as 'center',
+    lineHeight: 1.5,
+    width: '800px'
   },
   configurePassport: {
     marginTop: 20,
